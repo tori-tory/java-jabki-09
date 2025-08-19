@@ -43,8 +43,10 @@ public class Main {
         System.out.printf("Значение по ключу Math = %s\n", gradeMap.get("Math"));
 
         //Измените значение по ключу "English" на 5
-        gradeMap.put("English", 5);
-        System.out.printf("Значение по ключу English изменено на %s\n", gradeMap.get("English"));
+        if (gradeMap.containsKey("English")) {
+            gradeMap.put("English", 5);
+            System.out.printf("Значение по ключу English изменено на %s\n", gradeMap.get("English"));
+        }
 
         //Проверьте, есть ли в мапе ключ "History"
         if (gradeMap.containsKey("History")) {
@@ -61,7 +63,7 @@ public class Main {
         {
             map.put("Иванов", 5);
             map.put("Петров", 4);
-            map.put("Сидоров", 4);
+            map.put("Сидоров", 5);
         }
         System.out.printf("Лучше всех учится %s\n", bestStudent(map));
 
@@ -106,17 +108,16 @@ public class Main {
      * - Рейтинг студентов
      * Дан Map<String, Integer> (имя студента → балл). Верните имя студента с максимальным баллом
      */
-    public static String bestStudent(Map<String, Integer> map) {
-        String key = null;
-        Integer maxValue = Integer.MIN_VALUE;
+    public static List<String> bestStudent(Map<String, Integer> map) {
+        List<String> students = new ArrayList<>();
+        Integer maxValue = Collections.max(map.values());
 
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            if (entry.getValue() > maxValue) {
-                maxValue = entry.getValue();
-                key = entry.getKey();
+            if (entry.getValue() == maxValue) {
+                students.add(entry.getKey());
             }
         }
-        return key;
+        return students;
     }
 
     /**
