@@ -1,7 +1,13 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Main {
-    public static Map<String, Set<String>> synonymMap = new HashMap<>();
+    private static Map<String, Set<String>> synonymMap = new HashMap<>();
 
     public static void main(String[] args) {
         System.out.println("Домашняя работа №9");
@@ -60,11 +66,9 @@ public class Main {
         System.out.println(gradeMap);
 
         Map<String, Integer> map = new HashMap<>();
-        {
             map.put("Иванов", 5);
             map.put("Петров", 4);
             map.put("Сидоров", 5);
-        }
         System.out.printf("Лучше всех учится %s\n", bestStudent(map));
 
         // Словарь синонимов
@@ -75,6 +79,9 @@ public class Main {
         addSynonym("синоним", "аналог");
         addSynonym("синоним", "дубликат");
         addSynonym("синоним", "эквивалент");
+        addSynonymAlternative("гора", "холм");
+        addSynonymAlternative("холод", "мороз");
+        addSynonymAlternative("холод", "стужа");
         System.out.println(synonymMap);
     }
 
@@ -130,5 +137,9 @@ public class Main {
             synonymMap.put(word, new HashSet<>());
         }
         synonymMap.get(word).add(synonym);
+    }
+
+    public static void addSynonymAlternative(String word, String synonym) {
+        synonymMap.computeIfAbsent(word, k -> new HashSet<>()).add(synonym);
     }
 }
